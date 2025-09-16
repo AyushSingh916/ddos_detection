@@ -46,11 +46,3 @@ We use the **SNT (Social Network Traffic) dataset**, which contains:
 
 ---
 
-## 🛠️ Installation  
-
-Clone this repository and install dependencies:  
-
-```bash
-git clone https://github.com/your-username/ddos-detection-snt.git
-cd ddos-detection-snt
-pip install -r requirements.txt
