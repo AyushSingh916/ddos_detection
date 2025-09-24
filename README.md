@@ -1,48 +1,90 @@
-# 🛡️ DDoS Attack Detection using Machine Learning (SNT Dataset)
+# 🛡️ DDoS Attack Detection using Machine Learning (SDN + Healthcare IoT)
 
-This repository contains a Jupyter Notebook for training and evaluating **machine learning models** on the **Social Network Traffic (SNT) dataset**, with the primary focus on **detecting and preventing Distributed Denial of Service (DDoS) attacks**.  
+This repository contains Jupyter Notebooks and code for training and evaluating **machine learning models** on **two real-world datasets**:  
+- **SNT (Social Network Traffic)** → representing **SDN networks**  
+- **UL-ECE-UDP-DDoS-H-IoT2025** → representing **Healthcare IoT traffic**  
 
-The notebook demonstrates both **binary classification** (Attack vs. Benign) and **multiclass classification** (different types of attacks), optimized for **fast execution** and **high accuracy**.
+The goal is to detect and mitigate **Distributed Denial of Service (DDoS) attacks** in **different network domains** (SDN + IoT), while comparing performance and feature importance across them.  
 
 ---
 
 ## 🌐 About the Project  
 
-The rise of **DDoS attacks** in modern networks poses serious threats to availability and security.  
-This project uses the **SNT dataset**, which includes real-world traffic patterns, to build models capable of:  
-- **Identifying malicious traffic** early  
-- **Differentiating between multiple attack types**  
-- Supporting **proactive DDoS mitigation** in social and enterprise networks  
+The rise of **DDoS attacks** threatens both **programmable SDN controllers** and **critical IoT devices** in healthcare environments.  
+This project builds **end-to-end ML pipelines** to:  
+- **Identify malicious traffic** quickly and reliably  
+- **Differentiate multiple attack types** (not just binary)  
+- **Compare detection methods across domains** (SDN vs. IoT)  
+- Support **real-time proactive mitigation**  
 
 ---
 
 ## 🚀 Features  
 
-- Preprocessing with **scaling & stratified splits**  
-- **Class imbalance handling** with undersampling (fast and effective for large data)  
-- Training and evaluation of state-of-the-art models:  
+- Dual-dataset pipelines:
+  - 📡 **SDN traffic (SNT dataset)** → flow-level features  
+  - 🏥 **Healthcare IoT UDP traffic (UL-ECE-UDP-DDoS-H-IoT2025)** → device-level features  
+- Preprocessing:
+  - Handling missing values  
+  - Normalization + encoding  
+  - Feature engineering for IoT traffic  
+- Imbalance handling with undersampling  
+- ML Models implemented:
   - 🌲 Random Forest  
   - 🌳 Decision Tree  
   - 📈 Logistic Regression  
-  - ⚡ XGBoost (with optional GPU acceleration)  
-- Performance metrics:  
+  - ⚡ XGBoost  
+  - 🔎 SVM (Healthcare IoT only)  
+  - 📊 Gradient Boosting (Healthcare IoT only)  
+- Evaluation metrics:
   - ✅ Accuracy  
-  - 🎯 F1-score (binary & weighted multiclass)  
-  - 📊 ROC-AUC (for better attack detection evaluation)  
-- Designed to handle **millions of traffic records efficiently**  
+  - 🎯 Precision, Recall, F1 (binary + weighted multiclass)  
+  - 📊 ROC-AUC  
+  - 🔍 Feature importance ranking  
+  - 📉 Confusion matrices  
+- Designed to handle **millions of network records efficiently**  
 
 ---
 
-## 📂 Dataset  
+## 📂 Datasets  
 
-We use the **SNT (Social Network Traffic) dataset**, which contains:  
-- Normal (benign) traffic flows  
-- Malicious traffic from **DDoS and related attacks**  
-- Features representing packet-level and flow-level characteristics  
+### 1. **SNT (Social Network Traffic)**  
+- Represents SDN traffic  
+- Contains normal + malicious flows (DDoS, botnet, etc.)  
+- Features: packet/flow-level statistics  
+- Targets:  
+  - `y_binary` → 0 = Benign, 1 = Attack  
+  - `y_multiclass` → Benign, DDoS, Botnet, etc.  
 
-**Targets:**  
-- `y_binary` → Binary classification (0 = Benign, 1 = Attack)  
-- `y_multiclass` → Multiclass classification (Benign, DDoS, Botnet, etc.)  
+### 2. **UL-ECE-UDP-DDoS-H-IoT2025**  
+- Healthcare IoT dataset with UDP-based traffic  
+- Contains both normal and DDoS attack flows  
+- Features include:  
+  - Temporal (e.g., `time_elapsed`, `frequency`)  
+  - Network (`node_id`, `protocol`, IPs)  
+  - Traffic (`payload_size`, `total_messages`)  
+  - Monitoring (`monitoring_total_messages`)  
+- Target:  
+  - `outcome` → Normal vs Attack  
 
 ---
 
+## 🔬 Methodology  
+
+- **Two parallel pipelines** (SDN + IoT) with similar structures:  
+  - Data preprocessing  
+  - Feature selection/engineering  
+  - Model training  
+  - Evaluation (metrics + visualization)  
+- **Cross-domain analysis** performed to check if detection methods generalize between SDN and IoT.  
+
+---
+
+## 📊 Results (Highlights)  
+
+- Both pipelines achieved **95%+ accuracy** in binary classification.  
+- **Random Forest** consistently gave the best performance across both datasets.  
+- Multiclass classification also performed well, though slightly lower than binary.  
+- Feature importance analysis revealed different critical features in SDN vs. IoT.  
+
+---
